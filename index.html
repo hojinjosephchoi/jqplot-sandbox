@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>index</title>
+<script language="javascript" type="text/javascript" src="jqplot/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="jqplot/jquery.jqplot.js"></script>
+<link rel="stylesheet" type="text/css" href="jqplot/jquery.jqplot.css" />
+
+
+<script type="text/javascript" src="jqplot/plugins/jqplot.dateAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
+<script type="text/javascript" src="jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
+<script type="text/javascript" src="jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+<script type="text/javascript" src="jqplot/plugins/jqplot.highlighter.min.js"></script>
+
+
+<script type="text/javascript">
+  $(document).ready(() => {
+    let chartData = [
+      [
+        [new Date(2017, 4, 1, 10, 0, 0, 000), 2],
+        [new Date(2017, 4, 1, 10, 0, 1, 000), 5.12],
+        [new Date(2017, 4, 1, 10, 0, 2, 000), 13.1],
+        [new Date(2017, 4, 1, 10, 0, 3, 000), 33.6],
+        [new Date(2017, 4, 1, 10, 0, 4, 000), 85.9],
+        [new Date(2017, 4, 1, 10, 0, 5, 000),219.9]
+      ],
+      [
+        [new Date(2017, 4, 1, 10, 0, 0, 000), 3],
+        [new Date(2017, 4, 1, 10, 0, 1, 500), 2.12],
+        [new Date(2017, 4, 1, 10, 0, 2, 050), 4.1],
+        [new Date(2017, 4, 1, 10, 0, 3, 030), 7.6],
+        [new Date(2017, 4, 1, 10, 0, 4, 230), 11.9],
+        [new Date(2017, 4, 1, 10, 0, 5, 000), 50]
+      ]
+    ];
+    $.jqplot('chartdiv', chartData, {
+      axes: { 
+        xaxis: { 
+          renderer: $.jqplot.DateAxisRenderer, 
+          tickRenderer: $.jqplot.CanvasAxisTickRenderer, 
+          tickOptions: { 
+            formatString: "%F %T.%N", 
+            angle: -90, 
+            // textColor: '#dddddd'
+          }, 
+          // min: "2011-08-01", 
+          // max: "2011-09-30", 
+          // tickInterval: "7 days", 
+          // drawMajorGridlines: false 
+        }, 
+        // yaxis: { 
+        //   renderer: $.jqplot.LogAxisRenderer, 
+        //   pad: 0, 
+        //   rendererOptions: { 
+        //     minorTicks: 1 
+        //   }, 
+        //   tickOptions: { 
+        //     formatString: "$%'d", 
+        //     showMark: false 
+        //   } 
+        // } 
+      }
+    });
+  });
+</script>
+
+</head>
+<body>
+
+<div id="chartdiv" style="width:400px; height:300px;"></div>
+
+</body>
+</html>
