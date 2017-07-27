@@ -12,8 +12,23 @@
 <script type="text/javascript" src="jqplot/plugins/jqplot.logAxisRenderer.min.js"></script>
 <script type="text/javascript" src="jqplot/plugins/jqplot.canvasTextRenderer.min.js"></script>
 <script type="text/javascript" src="jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
-<script type="text/javascript" src="jqplot/plugins/jqplot.highlighter.min.js"></script>
 
+<script type="text/javascript" src="jqplot/plugins/jqplot.enhancedLegendRenderer.js"></script>
+
+<!-- highlighter -->
+<script type="text/javascript" src="jqplot/plugins/jqplot.highlighter.js"></script>
+
+<!-- cursor -->
+<script type="text/javascript" src="jqplot/plugins/jqplot.cursor.js"></script>
+
+<!-- point label -->
+<script type="text/javascript" src="jqplot/plugins/jqplot.pointLabels.js"></script>
+
+<!-- canvas overlay -->
+<script type="text/javascript" src="jqplot/plugins/jqplot.canvasOverlay.js"></script>
+
+<!-- trend line -->
+<script type="text/javascript" src="jqplot/plugins/jqplot.trendline.js"></script>
 
 <script type="text/javascript">
   $(document).ready(() => {
@@ -35,9 +50,136 @@
         [new Date(2017, 4, 1, 10, 0, 5, 000), 50]
       ]
     ];
+
+    
+
+    // Globally enable plugins like cursor and highlighter
+    $.jqplot.config.enablePlugins = true;
+
+    // for 2 digit years, set the default centry to 2000.
+    // $.jsDate.config.defaultCentury = 2000;
+
     $.jqplot('chartdiv', chartData, {
+      legend: {
+        show: true,
+        // renderer: $.jqplot.EnhancedLegendRenderer,
+        rendererOptions: {
+          numberRows: 1
+        },
+        // placement: 'outsideGrid',
+        labels: ['hello1', 'hello2'],
+        location: 'n'
+      },
+      cursor:{
+        zoom: true,
+        tooltipOffset: 10,
+        tooltipLocation: 'nw'
+      },
+      seriesDefaults:{
+        // linePattern: 'dashed',
+        // showMarker: false,
+        shadow: false,
+        rendererOptions: {
+          smooth: true
+        },
+        pointLabels: { 
+          show:true,
+          location: 'n', 
+          ypadding: 50
+        }, 
+
+        // markerRenderer: $.jqplot.MarkerRenderer,
+        markerOptions: {
+          show: true,
+          size: 10,
+          shadow: false,
+          style: 'square'
+        },
+
+        trendline: {
+          show: true
+        },
+        
+      },
+
+      highlighter: {
+        sizeAdjust: 10,
+        tooltipLocation: 'n',
+        tooltipAxes: 'y',
+        tooltipFormatString: '<b><i><span style="color:red;">hello</span></i></b> %.2f',
+        useAxesFormatters: false
+      },
+
+      grid: {
+        gridLineWidth: 1.5,
+        gridLineColor: 'rgb(235,235,235)',
+        drawGridlines: true
+      },
+
+      canvasOverlay: {
+        show: true,
+        objects: [
+          // {
+          //   horizontalLine: {
+          //     name: 'barney',
+          //     y: 50,
+          //     lineWidth: 6,
+          //     color: 'rgb(100, 55, 124)',
+          //     shadow: false
+          //   }
+          // },
+          // {
+          //   horizontalLine: {
+          //     name: 'fred',
+          //     y: 100,
+          //     lineWidth: 12,
+          //     xminOffset: '8px',
+          //     xmaxOffset: '29px',
+          //     color: 'rgb(50, 55, 30)',
+          //     shadow: false
+          //   }
+          // },
+          // {
+          //   dashedHorizontalLine: {
+          //     name: 'wilma',
+          //     y: 200,
+          //     lineWidth: 2,
+          //     xOffset: 54,
+          //     color: 'rgb(133, 120, 24)',
+          //     shadow: false
+          //   }
+          // }
+
+          {
+            rectangle: { 
+              ymax: 40, 
+              xminOffset: "0px", 
+              xmaxOffset: "0px", 
+              yminOffset: "0px", 
+              ymaxOffset: "0px",
+              color: "rgba(0, 0, 200, 0.3)", 
+              showTooltip: true, 
+              tooltipFormatString: "Too low"
+            }
+          },
+          {
+            rectangle: { 
+              ymin: 200, 
+              xminOffset: "0px", 
+              xmaxOffset: "0px", 
+              yminOffset: "0px", 
+              ymaxOffset: "0px",
+              color: "rgba(200, 0, 0, 0.3)", 
+              showTooltip: true, 
+              tooltipFormatString: "Too high"
+            }
+          }
+        ]
+      },
+
       axes: { 
         xaxis: { 
+          label: 'xxxxx',
           renderer: $.jqplot.DateAxisRenderer, 
           tickRenderer: $.jqplot.CanvasAxisTickRenderer, 
           tickOptions: { 
@@ -45,11 +187,17 @@
             angle: -90, 
             // textColor: '#dddddd'
           }, 
+          // tickInterval:'1 second',
           // min: "2011-08-01", 
           // max: "2011-09-30", 
           // tickInterval: "7 days", 
           // drawMajorGridlines: false 
         }, 
+        yaxis:{
+          labelRenderer: $.jqplot.CanvasAxisLabelRenderer,
+          label:'Core Motor Voltage',
+          // pad: 2
+        }
         // yaxis: { 
         //   renderer: $.jqplot.LogAxisRenderer, 
         //   pad: 0, 
@@ -66,10 +214,19 @@
   });
 </script>
 
+<style>
+table{
+  width: 100%;
+}
+.jqplot-table-legend{
+  width: initial;
+}
+</style>
+
 </head>
 <body>
-
-<div id="chartdiv" style="width:400px; height:300px;"></div>
+<div>Hello world</div>
+<div id="chartdiv" style="width:100%; height:600px;"></div>
 
 </body>
 </html>
